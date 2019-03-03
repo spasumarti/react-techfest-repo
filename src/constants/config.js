@@ -1,5 +1,5 @@
 export const USER_ID = 2
-export const DOMAIN = 'http://127.0.0.1:8080'
+export const DOMAIN = 'https://fest-be-angular-fest.7e14.starter-us-west-2.openshiftapps.com'
 export const GET_USER = '/api/user'
 export const GET_CATEGORY = '/api/category'
 export const GET_PRODUCT_DETAILS = '/api/product'

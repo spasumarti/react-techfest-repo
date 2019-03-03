@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
@@ -68,8 +68,13 @@ const List = styled.ul`
 const ListItem = styled.li`
 `
 
-class ProductDetails extends PureComponent {
+class ProductDetails extends Component {
 
+  componentWillUpdate(nextProps){
+    if(nextProps.productId !== this.props.productId) {
+      nextProps.fetchProductDescription(nextProps.productId)
+    }
+  }
   componentDidMount() {
     const { productId, fetchProductDescription } = this.props
     fetchProductDescription(productId)
@@ -84,8 +89,9 @@ class ProductDetails extends PureComponent {
           history.push('/cart')
         }
       })
-        .catch(error => console.error(error))
+      .catch(error => { console.error(error) })
     }
+
     return (
       <Wrapper>
         <ImageWrapper>

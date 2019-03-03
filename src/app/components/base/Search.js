@@ -8,6 +8,7 @@ import { setSearch } from '../../../store/actions/search'
 import { getSearchResults } from '../../../store/actions/search-results'
 import Autocomplete from 'react-autocomplete'
 import { selectSearchText, selectSearchResults } from '../../../store/selectors'
+import { Link } from 'react-router-dom'
 
 const SearchBox = styled.div`
   color: ${aluminium};
@@ -60,20 +61,21 @@ const Item = (item, highlighted) =>(
     key={item.id}
     style={{ backgroundColor: highlighted ? fontblack : 'transparent'}}
   >
+  <Link to={'/product/'+item.id} style={{"textDecoration": "none", "color": "white"}}>
     {item.name}
+    </Link>
   </ItemResult>
 )
 
 
-const Search = ({search, setSearch, searchResults, getSearchResults, history}) => {
-  const onChangeSearch = (e) => {
-    const val = e.target.value
+const Search = ({search, setSearch, searchResults, getSearchResults}) => {
+  const onChangeSearch = (val) => {
     setSearch(val)
     getSearchResults(val)
   }
 
-  const onSelect = (item) => {
-    window.location.replace(`/product/${item.id}`)
+  const onSelect = () => {
+    setSearch('')
   }
 
   const menuStyle = {
@@ -97,8 +99,8 @@ const Search = ({search, setSearch, searchResults, getSearchResults, history}) =
         value={search}
         menuStyle={menuStyle}
         renderInput={InputComponent}
-        onChange={(e) => onChangeSearch(e)}
-        onSelect={(val, item) => onSelect(item)}
+        onChange={(e) => onChangeSearch(e.target.value)}
+        onSelect={(val, item) => onSelect(val)}
       />
     </SearchWrapper>
   )
